@@ -2,6 +2,9 @@
 
 Um jogo clássico de quebra-blocos desenvolvido em Godot 4.4, inspirado no famoso Arkanoid. Quebre todos os blocos usando a bola que rebate na sua raquete e avance pelos níveis!
 
+## 📸 Demonstração
+![Super Arkanoid Gameplay](game.gif)
+
 ## 🚀 Características
 
 - **3 níveis únicos** com layouts diferentes de blocos
