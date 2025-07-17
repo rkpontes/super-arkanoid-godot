@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://cjsb086r1btho"]
+
+[ext_resource type="Texture2D" uid="uid://ynr37nd4v4yj" path="res://Sprites/Background.png" id="1_km3fo"]
+[ext_resource type="Script" uid="uid://cv15ffcfxpnxs" path="res://Scripts/environment.gd" id="1_mfu5p"]
+[ext_resource type="Shader" uid="uid://cuctxtrysdex5" path="res://Shaders/background.gdshader" id="2_ukl56"]
+[ext_resource type="PackedScene" uid="uid://cm3s4bkdobo5h" path="res://Scenes/hud.tscn" id="3_a65fu"]
+[ext_resource type="AudioStream" uid="uid://cog2s5wwa1703" path="res://Sounds/death.wav" id="5_vpl2n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpl2n"]
+shader = ExtResource("2_ukl56")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_km3fo"]
+size = Vector2(33, 480)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfu5p"]
+size = Vector2(708, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a65fu"]
+size = Vector2(706, 25)
+
+[node name="Environment" type="Node2D"]
+script = ExtResource("1_mfu5p")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_vpl2n")
+texture = ExtResource("1_km3fo")
+centered = false
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(-17, 240)
+shape = SubResource("RectangleShape2D_km3fo")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(674, 0)
+collision_layer = 32
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(-17, 240)
+shape = SubResource("RectangleShape2D_km3fo")
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+position = Vector2(663, -10)
+collision_layer = 32
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+position = Vector2(-343, -5.5)
+shape = SubResource("RectangleShape2D_mfu5p")
+
+[node name="DeathZone" type="Area2D" parent="."]
+position = Vector2(-23, 490)
+collision_layer = 64
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone"]
+position = Vector2(343, 2.5)
+shape = SubResource("RectangleShape2D_a65fu")
+debug_color = Color(0.996517, 0, 0.185162, 0.42)
+
+[node name="TimerReset" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("3_a65fu")]
+
+[node name="AudioDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_vpl2n")
+volume_db = -10.0
+
+[connection signal="body_entered" from="DeathZone" to="." method="_on_death_zone_body_entered"]
+[connection signal="timeout" from="TimerReset" to="." method="_on_timer_reset_timeout"]

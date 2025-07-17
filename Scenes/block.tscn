@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://psaffaqgjx3"]
+
+[ext_resource type="Script" uid="uid://cu6cr10as63jy" path="res://Scripts/block.gd" id="1_ejx3s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8o1l4"]
+size = Vector2(80, 24)
+
+[node name="Block" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("1_ejx3s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(40, 12)
+shape = SubResource("RectangleShape2D_8o1l4")

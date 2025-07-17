@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://dem71c3ekbssi"]
+
+[ext_resource type="Texture2D" uid="uid://o6jsnmh8nsgj" path="res://Sprites/Winner.png" id="1_3ff1d"]
+[ext_resource type="Script" uid="uid://1wt7atag0lgt" path="res://Scripts/winner.gd" id="1_gjg4f"]
+[ext_resource type="FontFile" uid="uid://byujcy43ligka" path="res://Fonts/Flatwheat-Regular.ttf" id="3_5sgi5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gjg4f"]
+font = ExtResource("3_5sgi5")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_5sgi5"]
+font = ExtResource("3_5sgi5")
+font_size = 20
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Winner" type="Node2D"]
+script = ExtResource("1_gjg4f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.417318, 0.46875)
+texture = ExtResource("1_3ff1d")
+centered = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = 114.0
+offset_top = 218.0
+offset_right = 523.0
+offset_bottom = 268.0
+text = "Parabéns! Você venceu."
+label_settings = SubResource("LabelSettings_gjg4f")
+
+[node name="RestartButton" type="Button" parent="."]
+offset_left = 247.0
+offset_top = 384.0
+offset_right = 392.0
+offset_bottom = 415.0
+action_mode = 0
+text = "Recomeçar "
+
+[node name="LabelPoints" type="Label" parent="."]
+offset_left = 247.0
+offset_top = 278.0
+offset_right = 386.0
+offset_bottom = 303.0
+text = "PONTOS: "
+label_settings = SubResource("LabelSettings_5sgi5")
+
+[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
